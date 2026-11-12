@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>MatchingDonors Appointment Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="proto">
+      <div class="wrap">
+        <span>PROTOTYPE · sample professionals, no real appointments are booked</span
+        ><span>Local Care Finder for MatchingDiabetes.com</span>
+      </div>
+    </div>
+    <header class="site">
+      <div class="wrap">
+        <div class="mark">
+          <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+            <rect x="12" y="2" width="10" height="30" rx="2" fill="#fff" />
+            <rect x="2" y="12" width="30" height="10" rx="2" fill="#bfe6f5" /></svg
+          >MatchingDiabetes
+        </div>
+        <nav class="nav" aria-label="Site">
+          <span>Home</span><span>Our Services</span><span>Our Specialists</span><span>News</span
+          ><span class="on">Find Care</span><span>Login</span>
+        </nav>
+      </div>
+    </header>
+    <div class="crumb">
+      <div
+        class="wrap"
+        style="
+          padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0
+            max(16px, env(safe-area-inset-left, 0px));
+        "
+      >
+        Home › Find Care Near You
+      </div>
+    </div>
+
+    <main class="wrap">
+      <section class="intro">
+        <h1>
+          Book Your Appointment <b>Through The MatchingDonors.com Network</b>Easy Online System
+        </h1>
+        <p class="lede">
+          Tell us how to reach you and where you live, and we'll show transplant and dialysis
+          professionals, kidney transplant experts, healthcare lawyers and peer mentors near you. If
+          nobody is close by, we widen the search and show video appointments available in your
+          state.
+        </p>
+      </section>
+
+      <ol class="steps" id="steps">
+        <li data-s="1" class="on"><i>1</i>Your information</li>
+        <li data-s="2"><i>2</i>Choose a professional</li>
+        <li data-s="3"><i>3</i>Talk now or schedule</li>
+      </ol>
+
+      <div id="view-search">
+        <form class="search" id="searchForm" novalidate>
+          <h2 class="form-h">Your contact information</h2>
+          <p class="form-p">
+            All fields are required. The professional you choose will use these details to confirm
+            your appointment.
+          </p>
+          <div class="grid">
+            <div class="field c3">
+              <label for="fName">First name</label
+              ><input id="fName" autocomplete="given-name" required />
+            </div>
+            <div class="field c3">
+              <label for="lName">Last name</label
+              ><input id="lName" autocomplete="family-name" required />
+            </div>
+            <div class="field c3">
+              <label for="email">Email</label
+              ><input
+                id="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div class="field c3">
+              <label for="phone">Phone</label
+              ><input
+                id="phone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="(555) 555-0123"
+                required
+              />
+            </div>
+            <div class="field c6">
+              <label for="street">Street address</label
+              ><input id="street" autocomplete="street-address" required />
+            </div>
+            <div class="field c2">
+              <label for="zip">ZIP code</label
+              ><input
+                id="zip"
+                class="zipin"
+                inputmode="numeric"
+                autocomplete="postal-code"
+                maxlength="5"
+                placeholder="02134"
+                required
+              />
+            </div>
+            <div class="field c3">
+              <label for="city">City</label
+              ><input id="city" autocomplete="address-level2" required />
+            </div>
+            <div class="field c1">
+              <label for="state">State</label
+              ><input id="state" autocomplete="address-level1" maxlength="2" required />
+            </div>
+            <fieldset class="field c6 pref">
+              <legend>Best way to reach you</legend>
+              <label><input type="radio" name="pref" value="Email" checked /> Email</label>
+              <label><input type="radio" name="pref" value="Phone call" /> Phone call</label>
+              <label><input type="radio" name="pref" value="Text message" /> Text message</label>
+            </fieldset>
+            <div class="field c6">
+              <label for="spec">Who would you like to speak with?</label
+              ><select id="spec">
+                <option value="">All appointment types</option>
+              </select>
+            </div>
+          </div>
+          <p class="err" id="zipErr" hidden></p>
+          <div class="opts">
+            <label><input type="checkbox" id="tele" checked /> Include video appointments</label>
+            <label><input type="checkbox" id="newOnly" /> Accepting new patients only</label>
+            <button class="btn" type="submit">Find support near me</button>
+          </div>
+        </form>
+        <section id="results" aria-live="polite"></section>
+      </div>
+
+      <section id="view-sched" hidden></section>
+
+      <details class="admin">
+        <summary>For site admins: professionals, waitlist and connections</summary>
+        <div class="in">
+          <p class="note" style="margin: 0 0 12px">
+            On the live site every professional is one entry in WordPress (a “Care Professionals”
+            post type). Staff add, edit, pause or remove people from the dashboard; the finder
+            updates instantly. These are the fields behind each card above:
+          </p>
+          <div class="tbl">
+            <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Example</th>
+                  <th>Used for</th>
+                </tr>
+              </thead>
+              <tbody id="schema"></tbody>
+            </table>
+          </div>
+          <h3>Professionals</h3>
+          <p class="note" style="margin: 0 0 10px">
+            A profile appears in the finder only when all four boxes are ticked.
+          </p>
+          <div class="tbl">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Location</th>
+                  <th>License verified</th>
+                  <th>Approved</th>
+                  <th>Fee paid</th>
+                  <th>Active</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="proRows"></tbody>
+            </table>
+          </div>
+          <h3>Add a professional</h3>
+          <form id="addPro" class="grid" novalidate>
+            <div class="field c3"><label for="aName">Name</label><input id="aName" /></div>
+            <div class="field c3">
+              <label for="aCreds">Credentials</label><input id="aCreds" placeholder="MD, RN, JD" />
+            </div>
+            <div class="field c3">
+              <label for="aSpec">Appointment type</label
+              ><select id="aSpec"></select>
+            </div>
+            <div class="field c3">
+              <label for="aPractice">Practice</label><input id="aPractice" />
+            </div>
+            <div class="field c3">
+              <label for="aZip">Practice ZIP code</label
+              ><input id="aZip" inputmode="numeric" maxlength="5" />
+            </div>
+            <div class="field c3">
+              <label for="aStates">States served by video</label
+              ><input id="aStates" placeholder="NJ, NY" />
+            </div>
+            <div class="field c3">
+              <label for="aCal">Calendly link</label
+              ><input id="aCal" type="url" placeholder="https://calendly.com/..." />
+            </div>
+            <div class="field c3">
+              <label for="aTikr">Tikr link</label
+              ><input id="aTikr" type="url" placeholder="https://tikr.is/..." />
+            </div>
+            <div class="field c6">
+              <label for="aBio">Short bio</label><textarea id="aBio" rows="2"></textarea>
+            </div>
+            <p class="err" id="addErr" hidden style="grid-column: 1/-1"></p>
+            <div style="grid-column: 1/-1">
+              <button class="btn" type="submit">Add professional</button>
+            </div>
+          </form>
+          <h3>Waitlist by ZIP</h3>
+          <div class="tbl">
+            <table>
+              <thead>
+                <tr>
+                  <th>ZIP</th>
+                  <th>Type</th>
+                  <th>Signups</th>
+                  <th>Emails</th>
+                </tr>
+              </thead>
+              <tbody id="waitRows"></tbody>
+            </table>
+          </div>
+          <h3>Connections</h3>
+          <div class="tbl">
+            <table>
+              <thead>
+                <tr>
+                  <th>When</th>
+                  <th>Source site</th>
+                  <th>Visitor</th>
+                  <th>ZIP</th>
+                  <th>Professional</th>
+                  <th>Method</th>
+                </tr>
+              </thead>
+              <tbody id="connRows"></tbody>
+            </table>
+          </div>
+          <p class="note">
+            Prototype: this data is saved in this browser only.
+            <button class="chip" type="button" id="resetData">Reset sample data</button>
+          </p>
+        </div>
+      </details>
+    </main>
+    <footer class="site-foot">
+      <div class="wrap">
+        <span>MatchingDiabetes.com · Local Care Finder prototype</span
+        ><span>Questions? Call 1-800-385-0422</span>
+      </div>
+    </footer>
+
+    <script src="js/zip-data.js"></script>
+    <script src="js/providers.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
